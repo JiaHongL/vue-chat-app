@@ -4,8 +4,10 @@ import * as yup from 'yup';
 import { useForm } from 'vee-validate';
 import RegisterDialog from '@/components/RegisterDialog.vue';
 import useDialog from '@/composables/useDialog.ts';
+import useNotice from '@/composables/useNotice';
 
 const { openDialog } = useDialog();
+const { notice } = useNotice();
 
 const { meta, handleSubmit, defineField } = useForm({
   initialValues: {
@@ -29,7 +31,7 @@ const onSubmit = handleSubmit(async (values) => {
     });
     console.log(result);
   } catch (error) {
-    console.error(error);
+    notice('Login failed!');
   }
 });
 
