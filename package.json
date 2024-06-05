@@ -11,6 +11,8 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
+    "@vueuse/components": "^10.10.0",
+    "@vueuse/core": "^10.10.0",
     "axios": "^1.7.2",
     "pinia": "^2.1.7",
     "vee-validate": "^4.13.0",
