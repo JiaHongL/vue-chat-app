@@ -2,7 +2,15 @@ import { defineStore } from 'pinia';
 import { ref, shallowRef } from 'vue';
 
 export const useDialogStore = defineStore('dialog', () => {
-  const dialogs = ref<any[]>([]);
+  const dialogs = ref<{
+    id: string;
+    _onClose: (result: any) => void;
+    component: any;
+    props: {
+      data?: any;
+      [key: string]: any;
+    };
+  }[]>([]);
 
   const generateId = () => {
     const s4 = () => ((1 + Math.random()) * 0x10000).toString(16).substring(1);
