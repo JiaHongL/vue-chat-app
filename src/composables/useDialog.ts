@@ -11,7 +11,7 @@ const useDialog = () => {
 
   const closeDialog = (id: string, result:any = null) => {
     const dialog = dialogStore.dialogs.find(dialog => dialog.id === id);
-    dialog._onClose(result);
+    dialog?._onClose(result);
   } 
 
   return {

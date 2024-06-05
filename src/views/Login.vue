@@ -5,9 +5,13 @@ import { useForm } from 'vee-validate';
 import RegisterDialog from '@/components/RegisterDialog.vue';
 import useDialog from '@/composables/useDialog.ts';
 import useNotice from '@/composables/useNotice';
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/userStore';
 
 const { openDialog } = useDialog();
 const { notice } = useNotice();
+const router = useRouter();
+const userStore = useUserStore();
 
 const { meta, handleSubmit, defineField } = useForm({
   initialValues: {
@@ -29,7 +33,8 @@ const onSubmit = handleSubmit(async (values) => {
       username: values.username,
       password: values.password
     });
-    console.log(result);
+    userStore.saveToken(result.data.token);
+    router.push('/chat');
   } catch (error) {
     notice('Login failed!');
   }

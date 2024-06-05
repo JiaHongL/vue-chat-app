@@ -6,6 +6,14 @@ const router = createRouter({
     {
       path: '/login',
       component: () => import('../views/Login.vue')
+    },
+    {
+      path: '/chat',
+      component: () => import('../views/Chat.vue')
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/login'
     }
   ]
 })
