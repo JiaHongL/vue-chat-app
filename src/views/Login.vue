@@ -2,6 +2,10 @@
 import { login } from '@/api/user';
 import * as yup from 'yup';
 import { useForm } from 'vee-validate';
+import RegisterDialog from '@/components/RegisterDialog.vue';
+import useDialog from '@/composables/useDialog.ts';
+
+const { openDialog } = useDialog();
 
 const { meta, handleSubmit, defineField } = useForm({
   initialValues: {
@@ -29,6 +33,10 @@ const onSubmit = handleSubmit(async (values) => {
   }
 });
 
+const openRegisterDialog = async () => {
+  openDialog(RegisterDialog);
+};
+
 </script>
 
 <template>
@@ -44,23 +52,38 @@ const onSubmit = handleSubmit(async (values) => {
         </div>
       </div>
       <h2 class="text-3xl font-bold text-gray-900 text-center mb-2 sm:mb-4">Chat!</h2>
-      <p class="text-gray-500 text-center mb-6">Don't have an account yet? <a class="text-blue-500 cursor-pointer">Sign
-          up</a></p>
+      <p class="text-gray-500 text-center mb-6">Don't have an account yet?
+        <a @click="openRegisterDialog" class="text-blue-500 cursor-pointer">Sign up</a>
+      </p>
       <form @submit="onSubmit">
         <div class="mb-4">
           <label class="block text-gray-700 mb-1" for="username">Name</label>
-          <input v-model="username" v-bind="usernameAttrs" name="username" type="text" id="username"
+          <input 
+            v-model="username" 
+            v-bind="usernameAttrs" 
+            name="username" 
+            type="text" 
+            id="username"
             class="w-full p-3 rounded-lg bg-gray-100 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="User Name">
+            placeholder="User Name"
+          >
         </div>
         <div class="mb-6">
           <label class="block text-gray-700 mb-1" for="password">Password</label>
-          <input v-model="password" v-bind="passwordAttrs" name="password" type="password" id="password"
+          <input 
+            v-model="password" 
+            v-bind="passwordAttrs" 
+            name="password" 
+            type="password" 
+            id="password"
             class="w-full p-3 rounded-lg bg-gray-100 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Password">
+            placeholder="Password"
+          >
         </div>
         <div class="flex justify-center">
-          <button :disabled="!meta.valid" type="submit"
+          <button 
+            :disabled="!meta.valid" 
+            type="submit"
             class="py-2 px-4 bg-blue-500 text-white rounded-lg disabled:opacity-50 hover:bg-blue-600 hover:transition hover:duration-200">Login</button>
         </div>
       </form>

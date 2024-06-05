@@ -9,3 +9,10 @@ export const login = (params:{
 }) => {
   return axios.post(`${prefixUrl}/login`, params);
 };
+
+export const register = (params:{
+  username:string;
+  password:string;
+}) => {
+  return axios.post(`${prefixUrl}/register`, params);
+}
