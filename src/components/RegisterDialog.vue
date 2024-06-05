@@ -5,10 +5,16 @@ import * as yup from 'yup';
 import { useForm } from 'vee-validate';
 import useDialog from '@/composables/useDialog.ts';
 import DialogCloseButton from '@/components/DialogCloseButton.vue';
+import useNotice from '@/composables/useNotice';
 
 const props = defineProps({
-  id: String
+  id: {
+    type: String,
+    required: true,
+  }
 });
+
+const { notice } = useNotice();
 
 const { meta, handleSubmit, defineField } = useForm({
   initialValues: {
@@ -26,13 +32,16 @@ const [password, passwordAttrs] = defineField('password');
 
 const onSubmit = handleSubmit(async (values) => {
   try {
-    await register({
+    const result = await register({
       username: values.username,
       password: values.password
     });
-    closeDialog(props.id as string);
+    notice(result.data.message).onClose.then(() => {
+      closeDialog(props.id);
+    });
   } catch (error) {
-    console.error(error);
+    const errorResponse = (error as any)?.response?.data;
+    notice(errorResponse?.message);
   }
 });
 
