@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { initialState, type PrivateMessage, type User, type UserInfo } from './models';
+import { initialState, type GeneralMessage, type PrivateMessage, type RoomMessage, type User, type UserInfo } from './models';
 import { ref, computed } from 'vue';
 import { useUserStore } from './userStore';
 import { getUserInfo, getUsers } from '@/api/user';
@@ -19,7 +19,6 @@ export const useChatStore = defineStore('chat', () => {
       chat.value.userInfo = userInfo;
       // 取得所有使用者列表
       const result2 = await getUsers();
-      console.log('result2', result2);
       chat.value.users = result2.data as User[];
     } catch (error) {
       alert('Error fetching');
@@ -221,6 +220,50 @@ export const useChatStore = defineStore('chat', () => {
 
   });
 
+  const allUnreadCount = computed(() => {
+    const users = chat.value.users;
+    const userInfo = chat.value.userInfo;
+    const unreadCounts = chat.value.unreadCounts;
+
+    const generalUnreadCount = unreadCounts['general'] || 0;
+    const privateUnreadCount = users.reduce((acc, user) => {
+      const room = `private_${user.username}_${userInfo?.username}`;
+      const count = unreadCounts[room] || 0;
+      return acc + count;
+    }, 0);
+    return generalUnreadCount + privateUnreadCount;
+  });
+  
+  const currentChatMessages = computed<RoomMessage[]>(() => {
+    const currentRoom = chat.value.currentRoom;
+    if (currentRoom === 'general') {
+      let generalMessages = chat.value.generalMessages || [];
+      generalMessages = generalMessages.map(msg => {
+        if (msg.replyToMessageId) {
+          const replyToMessage = generalMessages.find(m => m.id === msg.replyToMessageId) as GeneralMessage;
+          return {
+            ...msg,
+            replyToMessage,
+          };
+        }
+        return msg;
+      });
+      return generalMessages as RoomMessage[];
+    } else {
+      let privateMessage = [...chat.value.privateMessages.filter(msg => ( msg.room === currentRoom))] || [];
+      privateMessage = privateMessage.map(msg => {
+        if (msg.replyToMessageId) {
+          const replyToMessage = privateMessage.find(m => m.id === msg.replyToMessageId) as PrivateMessage;
+          return {
+            ...msg,
+            replyToMessage,
+          };
+        }
+        return msg;
+      });
+      return privateMessage as RoomMessage[];
+    }
+  });
 
   const setCurrentRoom = (room: string) => {
     chat.value.currentRoom = room;
@@ -235,7 +278,9 @@ export const useChatStore = defineStore('chat', () => {
     onlineUsers,
     offlineUsers,
     currentChatPartner,
-    messageNotifications
+    messageNotifications,
+    allUnreadCount,
+    currentChatMessages,
   }
   
   return {
@@ -243,4 +288,5 @@ export const useChatStore = defineStore('chat', () => {
     ...methodList,
     ...computedList,
   };
+
 });

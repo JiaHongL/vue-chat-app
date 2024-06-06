@@ -13,10 +13,13 @@ declare module 'vue' {
     DialogCloseButton: typeof import('./src/components/common/DialogCloseButton.vue')['default']
     DialogManager: typeof import('./src/components/dialog/DialogManager.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
+    InputBlock: typeof import('./src/components/chat/InputBlock.vue')['default']
+    MessageBlock: typeof import('./src/components/chat/MessageBlock.vue')['default']
     NoticeDialog: typeof import('./src/components/dialog/NoticeDialog.vue')['default']
     RegisterDialog: typeof import('./src/components/dialog/RegisterDialog.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    UserStatus: typeof import('./src/components/chat/UserStatus.vue')['default']
     UserStatusList: typeof import('./src/components/sidebar/UserStatusList.vue')['default']
   }
 }
