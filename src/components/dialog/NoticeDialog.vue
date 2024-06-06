@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DialogCloseButton from '@/components/DialogCloseButton.vue';
+import DialogCloseButton from '@/components/common/DialogCloseButton.vue';
 import useNotice from '@/composables/useNotice';
 import type { PropType } from 'vue';
 

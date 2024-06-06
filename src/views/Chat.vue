@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useChatStore } from '@/stores/chatStore';
-import UserStatusList from '@/components/UserStatusList.vue';
+import UserStatusList from '@/components/sidebar/UserStatusList.vue';
+import ConversationList from '@/components/sidebar/ConversationList.vue';
+import ChatWindow from '@/components/chat/ChatWindow.vue';
 
 
 const chatStore = useChatStore();
-
 chatStore.connectWebSocket();
 
 </script>
@@ -17,9 +18,10 @@ chatStore.connectWebSocket();
     >
       <div class="flex w-[80%] h-[85%] min-w-[700px] bg-white rounded-lg shadow-lg">
           <!-- Sidebar -->
-          <!-- <app-conversation-list /> -->
+          <ConversationList />
           <!-- Chat area -->
-          <!-- <app-chat-window usageContext="desktop" /> -->
+          <!-- usageContext="desktop" -->
+          <ChatWindow />
           <!-- Online/Offline users list -->
           <UserStatusList />
       </div>

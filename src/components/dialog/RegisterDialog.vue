@@ -4,7 +4,7 @@ import { defineProps } from 'vue';
 import * as yup from 'yup';
 import { useForm } from 'vee-validate';
 import useDialog from '@/composables/useDialog.ts';
-import DialogCloseButton from '@/components/DialogCloseButton.vue';
+import DialogCloseButton from '@/components/common/DialogCloseButton.vue';
 import useNotice from '@/composables/useNotice';
 
 const props = defineProps({

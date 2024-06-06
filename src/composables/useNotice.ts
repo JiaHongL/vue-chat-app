@@ -1,5 +1,5 @@
 import { useDialogStore } from "@/stores/dialogStore";
-import NoticeDialog from "@/components/NoticeDialog.vue";
+import NoticeDialog from "@/components/dialog/NoticeDialog.vue";
 
 
 const useNotice = () => {
