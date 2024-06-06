@@ -14,6 +14,7 @@
     "@vueuse/components": "^10.10.0",
     "@vueuse/core": "^10.10.0",
     "axios": "^1.7.2",
+    "date-fns": "^3.6.0",
     "pinia": "^2.1.7",
     "vee-validate": "^4.13.0",
     "vue": "^3.4.21",
