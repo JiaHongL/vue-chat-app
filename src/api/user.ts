@@ -16,3 +16,11 @@ export const register = (params:{
 }) => {
   return axios.post(`${prefixUrl}/register`, params);
 }
+
+export const getUserInfo = () => {
+  return axios.get(`${prefixUrl}/me`);
+}
+
+export const getUsers = () => {
+  return axios.get(prefixUrl);
+}

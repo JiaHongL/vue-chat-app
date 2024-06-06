@@ -8,3 +8,7 @@ interface ImportMetaEnv {
   /** profile image api base url */
   readonly VITE_PROFILE_IMAGE_API: string;
 }
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
