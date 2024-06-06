@@ -20,10 +20,10 @@ const { closeDialog } = useNotice();
 <template>
     <div class="bg-white p-8 rounded-lg shadow-lg w-96 sm:max-w-md sm:w-full">
       <div class="flex justify-between items-center mb-6">
-        <h2 id="notification-title" class="text-2xl font-bold text-gray-900">Notice</h2>
+        <h2 class="text-2xl font-bold text-gray-900">Notice</h2>
         <DialogCloseButton @click="closeDialog(props.id)"/>
       </div>
-      <p id="notification-message" class="text-gray-700 mb-4">
+      <p class="text-gray-700 mb-4">
         {{ data.message }}
       </p>
       <div class="flex justify-center">

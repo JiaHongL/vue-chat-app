@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { register } from '@/api/user';
-import { defineProps } from 'vue';
 import * as yup from 'yup';
 import { useForm } from 'vee-validate';
 import useDialog from '@/composables/useDialog';
@@ -21,7 +20,7 @@ const { meta, handleSubmit, defineField } = useForm({
     password: ''
   },
   validationSchema: {
-    username: yup.string().required('Username is required'),
+    username: yup.string().required('username is required'),
     password: yup.string().required('Password is required'),
   }
 });

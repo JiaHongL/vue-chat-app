@@ -35,7 +35,7 @@ const {
     </div>
     <div class="relative h-10">
       <template v-if="currentChatPartner?.username">
-        <Avatar :username="currentChatPartner?.username" />
+        <Avatar :username="currentChatPartner?.username" :isGeneral="currentChatPartner?.username === 'general'"  />
         <template v-if="currentChatPartner?.status === 'online'">
           <span class="absolute bottom-0 right-3 bg-green-400 w-2 h-2 rounded-full"></span>
         </template>

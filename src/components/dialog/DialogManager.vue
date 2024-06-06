@@ -12,7 +12,7 @@ const { dialogs } = storeToRefs(dialogStore);
 <template>
   <teleport to="body">
     <div
-      class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center"
+      class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50"
       v-for="dialog in dialogs"
       :key="dialog.id"
       @click.self="closeDialog(dialog.id)"

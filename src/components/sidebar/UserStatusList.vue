@@ -28,7 +28,7 @@ const {
           <li v-for="user in onlineUsers" :key="user.username"
             @click="setCurrentRoom('private_' + chat?.userInfo?.username + '_' + user.username)"
             class="cursor-pointer flex items-center p-2 rounded-lg shadow mb-2 bg-white">
-            <Avatar :userName="user.username" />
+            <Avatar :username="user.username" />
             <div>
               <div
                 class="font-semibold text-gray-700 max-w-[280px] sm:max-w-[85px] text-nowrap overflow-hidden text-ellipsis">
@@ -48,7 +48,7 @@ const {
           <li v-for="user in offlineUsers" :key="user.username"
             @click="setCurrentRoom('private_' + chat?.userInfo?.username + '_' + user.username)"
             class="cursor-pointer flex items-center p-2 rounded-lg shadow mb-2 bg-gray-200 opacity-50">
-            <Avatar :userName="user.username" />
+            <Avatar :username="user.username" />
             <div>
               <div
                 class="font-semibold text-gray-700 max-w-[280px] sm:max-w-[85px] text-nowrap overflow-hidden text-ellipsis">

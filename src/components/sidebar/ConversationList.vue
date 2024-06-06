@@ -23,7 +23,7 @@ const {
 	<!-- 個人資訊 -->
 	<div class="hidden sm:flex items-center mb-4">
     <template v-if="chat.userInfo?.username">
-      <Avatar class="bg-white" :userName="chat.userInfo?.username" />
+      <Avatar class="bg-white" :username="chat.userInfo?.username" />
       <span class="font-semibold text-xl text-gray-900 max-w-[110px] text-nowrap overflow-hidden text-ellipsis">{{ chat.userInfo?.username }}</span>
     </template>
     <!-- (click)="userService.logout()" -->
@@ -109,7 +109,7 @@ const {
 								}"
 							>
 									<div class="relative flex-shrink-0 flex-grow-0">
-                    <Avatar :userName="user.username" />
+                    <Avatar :username="user.username" />
                     <template v-if="user.status === 'online'">
                       <span class="absolute bottom-0 right-3 bg-green-600 w-2 h-2 rounded-full"></span>
                     </template>

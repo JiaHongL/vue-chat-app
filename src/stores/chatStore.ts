@@ -175,8 +175,8 @@ export const useChatStore = defineStore('chat', () => {
       // 左側訊息通知: private_user02_user01，右側聊天室名稱: private_user01_user02，所以會需要判斷 sender 與 to
       const sender = currentRoom.split('_')[1];
       const to = currentRoom.split('_')[2];
-      const partnerUsername = sender === userInfo?.username ? to : sender;
-      const user = users.find(user => user.username === partnerUsername);
+      const partnerusername = sender === userInfo?.username ? to : sender;
+      const user = users.find(user => user.username === partnerusername);
       return user;
     }else if(currentRoom === 'general'){
       return { username: 'general', status: 'online' };
@@ -269,9 +269,35 @@ export const useChatStore = defineStore('chat', () => {
     chat.value.currentRoom = room;
   }
 
+  const recallMessage = (room: string, id: any) =>{
+    if (!socket) {return}
+      socket.send(JSON.stringify({
+        "event": "recallMessage",
+        "data": {
+            "room": room,
+            "id": id
+        }
+    }));
+    // store.disableAutoScroll();
+  };
+
+  const undoRecallMessage = (room: string, id: any) =>{
+    if (!socket) {return}
+      socket.send(JSON.stringify({
+        "event": "undoRecallMessage",
+        "data": {
+            "room": room,
+            "id": id
+        }
+    }));
+    // store.disableAutoScroll();
+  };
+
   const methodList = {
     connectWebSocket,
     setCurrentRoom,
+    recallMessage,
+    undoRecallMessage
   }
 
   const computedList = {

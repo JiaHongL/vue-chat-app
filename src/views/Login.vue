@@ -19,7 +19,7 @@ const { meta, handleSubmit, defineField } = useForm({
     password: ''
   },
   validationSchema: {
-    username: yup.string().required('Username is required'),
+    username: yup.string().required('username is required'),
     password: yup.string().required('Password is required'),
   }
 });
