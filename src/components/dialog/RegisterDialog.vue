@@ -3,8 +3,7 @@ import { register } from '@/api/user';
 import { defineProps } from 'vue';
 import * as yup from 'yup';
 import { useForm } from 'vee-validate';
-import useDialog from '@/composables/useDialog.ts';
-import DialogCloseButton from '@/components/common/DialogCloseButton.vue';
+import useDialog from '@/composables/useDialog';
 import useNotice from '@/composables/useNotice';
 
 const props = defineProps({

@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { useChatStore } from '@/stores/chatStore';
-import UserStatusList from '@/components/sidebar/UserStatusList.vue';
-import ConversationList from '@/components/sidebar/ConversationList.vue';
-import ChatWindow from '@/components/chat/ChatWindow.vue';
 
 
 const chatStore = useChatStore();

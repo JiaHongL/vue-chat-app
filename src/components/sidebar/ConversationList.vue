@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useChatStore } from '@/stores/chatStore';
 import { storeToRefs } from 'pinia';
-import Avatar from '@/components/common/Avatar.vue';
-import { safeHtml, formatDate } from '@/utils.ts';
+import { safeHtml, formatDate } from '@/utils';
 
 const chatStore = useChatStore();
 const { setCurrentRoom } = chatStore;
