@@ -15,7 +15,7 @@ const { selectIndex, selectedIndex, reset } = useSelection();
 
 const dynamicHeight = ref(() => {
   return {
-    height: 'calc(100vh - 180px)'
+    height: 'calc(100vh - 300px)'
   };
 });
 

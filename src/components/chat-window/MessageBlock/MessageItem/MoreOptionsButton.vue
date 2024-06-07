@@ -1,12 +1,3 @@
-<!-- 
-[index]="index"
-[message]="message" 
-[openDropdownIndex]="openDropdownIndex()" 
-(moreOptionClick)="openDropdownIndex.set($event)"
-(recallMessage)="resetOpenDropdownIndex();store.recallMessage($event.room, $event.id);"
-(replyMessage)="resetOpenDropdownIndex();selectedMessageId.set($event)" 
--->
-
 <script setup lang="ts">
 import { computed } from 'vue';
 import { vOnClickOutside } from '@vueuse/components'
@@ -71,7 +62,7 @@ const isOpenDropdown = computed(() => props.openDropdownIndex === props.index);
               <!-- Recall -->
               <template v-if="isSelfMessage">
                 <a 
-                  @click="emit('recallMessage')"
+                  @click.stop="emit('selectDropdownIndex', -1);emit('recallMessage')"
                   class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -82,7 +73,7 @@ const isOpenDropdown = computed(() => props.openDropdownIndex === props.index);
               </template>
               <!-- Reply -->
               <a 
-                @click="emit('replyMessage')"
+                @click.stop="emit('selectDropdownIndex', -1);emit('replyMessage')"
                 class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
               >
                 <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">

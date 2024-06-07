@@ -1,8 +1,12 @@
 <script setup>
 import { safeHtml, formatDate , truncate} from '@/utils';
 import { useChatStore } from '@/stores/chatStore';
+import { inject } from 'vue';
+import { ChatWindowShareStateKey } from './../chat-window-share-state-key';
 
 const { recallMessage, undoRecallMessage } = useChatStore();
+
+const chatWindowShareState = inject(ChatWindowShareStateKey);
 
 const props = defineProps({
   isOwnMessage: {
@@ -49,16 +53,7 @@ const emit = defineEmits(['selectDropdownIndex']);
       <div 
         class="flex justify-end group pb-5 ml-8"
       >
-        <!-- 選單 -->
-        <!-- <app-more-options-button 
-          [index]="index"
-          [message]="message" 
-          [openDropdownIndex]="openDropdownIndex()" 
-          (moreOptionClick)="openDropdownIndex.set($event)"
-          (recallMessage)="resetOpenDropdownIndex();store.recallMessage($event.room, $event.id);"
-          (replyMessage)="resetOpenDropdownIndex();selectedMessageId.set($event)"
-        ></app-more-options-button> -->
-
+        <!-- 更多選單 -->
         <MoreOptionsButton
           :index="index"
           :message="message"
@@ -66,6 +61,7 @@ const emit = defineEmits(['selectDropdownIndex']);
           :isSelfMessage="true"
           @selectDropdownIndex="emit('selectDropdownIndex', $event)"
           @recallMessage="recallMessage(message.room, message.id)"
+          @replyMessage="chatWindowShareState.updateSelectedReplyMessage(message)"
         /> 
 
         <div class="flex relative">
@@ -184,6 +180,7 @@ const emit = defineEmits(['selectDropdownIndex']);
           :openDropdownIndex="openDropdownIndex"
           :isSelfMessage="false"
           @selectDropdownIndex="emit('selectDropdownIndex', $event)"
+          @replyMessage="chatWindowShareState.updateSelectedReplyMessage(message)"
         /> 
       </div>
     </template>
