@@ -10,7 +10,7 @@ const props = defineProps({
   },
   data: {
     type: Object as PropType<{ 
-      isPasted: string;
+      isSendButtonVisible?: boolean;
       base64String: string; 
     }>,
     default: () => ({ message: '' }),
@@ -21,6 +21,10 @@ const { closeDialog } = useDialog();
 
 const close = () => {
   closeDialog(props.id as string);
+};
+
+const send = () => {
+  closeDialog(props.id as string, props.data.base64String);
 };
 
 </script>
@@ -34,7 +38,7 @@ const close = () => {
         />
     </div>
 
-    <template v-if="data.isPasted">
+    <template v-if="data.isSendButtonVisible">
       <div class="flex justify-center space-x-4">
           <button
             type="button" 
@@ -43,10 +47,10 @@ const close = () => {
           >
               cancel
           </button>
-          <!-- <button 
+          <button 
             class="py-2 px-4 bg-blue-500 text-white rounded-lg disabled:opacity-50 hover:bg-blue-600 hover:transition hover:duration-200"
             @click="send()"
-          >Send</button> -->
+          >Send</button>
       </div>
     </template>
     <template v-else>

@@ -5,7 +5,6 @@ export function useSelection() {
 
   const selectIndex = (index: number) => {
     selectedIndex.value = index;
-    console.log('Selected index:', index);
   };
 
   const reset = () => {

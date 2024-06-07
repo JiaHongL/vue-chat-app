@@ -33,7 +33,7 @@ const dynamicHeight = ref(() => {
       <!-- Repeat similar message blocks for chat messages -->
       <template 
         v-for="(message, index) in currentChatMessages"
-        :key="message.room"
+        :key="message.id"
       >
           <MessageItem
             :isOwnMessage="message.sender === chat.userInfo?.username"

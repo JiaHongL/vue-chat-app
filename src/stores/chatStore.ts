@@ -163,6 +163,13 @@ export const useChatStore = defineStore('chat', () => {
     return socket;
   };
 
+  const disconnectWebSocket = () => {
+    if (socket) {
+      socket.close();
+      socket = null;
+    }
+  };
+
   const onlineUsers = computed(() => chat.value.users.filter(user => user.status === 'online'));
   const offlineUsers = computed(() => chat.value.users.filter(user => user.status === 'offline'));
   const currentChatPartner = computed(() => {
@@ -269,6 +276,52 @@ export const useChatStore = defineStore('chat', () => {
     chat.value.currentRoom = room;
   }
 
+  const sendGeneralMessage = (message: string, replyToMessageId?:string) => {
+    if (!socket) {return}
+      socket.send(JSON.stringify({
+        "event": "message",
+        "data": {
+            "room": "general",
+            "message": message,
+            "sender": chat.value.userInfo?.username,
+            "replyToMessageId": replyToMessageId
+        }
+    }));
+  }
+
+  const sendPrivateMessage = (message: string, replyToMessageId?:string) => {
+    if (!socket) {return}
+      socket.send(JSON.stringify({
+        "event": "privateMessage",
+        "data": {
+            "to": currentChatPartner.value?.username,
+            "message": message,
+            "sender": chat.value.userInfo?.username,
+            "replyToMessageId": replyToMessageId
+        }
+    }));
+  }
+
+  const markAsRead = (room: string, type: 'general' | 'private') => {
+    if (!socket) {return}
+    socket.send(JSON.stringify({
+        "event": "markAsRead",
+        "data": {
+            "room": room,
+            "type": type,
+            "reader": chat.value.userInfo?.username,
+        }
+    }));
+  }
+
+  const markGeneralAsRead = () => {
+    markAsRead('general', 'general');
+  }
+
+  const markPrivateAsRead = (room:string) => {
+    markAsRead(room, 'private');
+  }
+
   const recallMessage = (room: string, id: any) =>{
     if (!socket) {return}
       socket.send(JSON.stringify({
@@ -293,11 +346,21 @@ export const useChatStore = defineStore('chat', () => {
     // store.disableAutoScroll();
   };
 
+  const reset = () => {
+    chat.value = initialState;
+  }
+
   const methodList = {
     connectWebSocket,
+    disconnectWebSocket,
     setCurrentRoom,
     recallMessage,
-    undoRecallMessage
+    undoRecallMessage,
+    sendGeneralMessage,
+    sendPrivateMessage,
+    markGeneralAsRead,
+    markPrivateAsRead,
+    reset,
   }
 
   const computedList = {
