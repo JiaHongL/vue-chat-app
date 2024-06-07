@@ -24,8 +24,6 @@ const dynamicHeight = ref(() => {
   <div 
     class="relative pl-0 sm:pl-3 flex-1 flex flex-col min-w-[250px] sm:h-auto"
   >
-    <!-- #chatBox
-    (click)="isShowEmojiMart.set(false)" -->
     <div 
       class="flex-grow-0 p-4 overflow-y-auto"
       :style="dynamicHeight()"

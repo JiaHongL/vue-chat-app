@@ -14,6 +14,7 @@ const shareState = {
 
 // 使用 provide 提供共享狀態
 provide(ChatWindowShareStateKey, shareState);
+
 </script>
 
 <template>

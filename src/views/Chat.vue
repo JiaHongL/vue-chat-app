@@ -31,6 +31,34 @@ chatStore.connectWebSocket();
     </div>
   </div>
   <!-- mobile -->
+  <div class="block sm:hidden">
+    <div 
+      class="font-sans bg-gray-200 h-100 w-screen"
+    >
+      <div class="flex flex-col w-screen bg-white rounded-lg shadow-lg">
+          <div class="w-screen margin-2">
+            <!-- 好友頁 -->
+            <!-- [hidden]="viewService.currentView()!=='friendList'" -->
+            <div>
+                <UserStatusList />
+                <BottomNavigation />
+            </div>
+            <!-- 通知訊息頁 -->
+            <!-- [hidden]="viewService.currentView()!=='chatList'" -->
+            <div>
+                <ConversationList />
+                <BottomNavigation />
+            </div>
+            <!-- 對話頁面 -->
+            <!-- [hidden]="viewService.currentView()!=='chatWindow'" -->
+            <div>
+              <!-- <app-chat-window usageContext="mobile" /> -->
+              <ChatWindow />
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>

@@ -2,7 +2,7 @@
 import { safeHtml, formatDate , truncate} from '@/utils';
 import { useChatStore } from '@/stores/chatStore';
 import { inject } from 'vue';
-import { ChatWindowShareStateKey } from './../chat-window-share-state-key';
+import { ChatWindowShareStateKey } from '../../chat-window-share-state-key';
 
 const { recallMessage, undoRecallMessage } = useChatStore();
 

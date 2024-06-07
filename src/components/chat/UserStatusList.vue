@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Avatar from '@/components/common/Avatar.vue';
+import Avatar from '@/components/shared/Avatar.vue';
 import { useChatStore } from '@/stores/chatStore';
 import { storeToRefs } from 'pinia'
 

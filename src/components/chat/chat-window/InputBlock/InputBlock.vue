@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { inject, ref } from 'vue';
 import { storeToRefs } from 'pinia'
-import { ChatWindowShareStateKey } from './chat-window-share-state-key';
-import type { ChatWindowShareState } from './chat-window-share-state.model';
+import { ChatWindowShareStateKey } from '../chat-window-share-state-key';
+import type { ChatWindowShareState } from '../chat-window-share-state.model';
 import { useChatStore } from '@/stores/chatStore';
 import vPasteImage from '@/directives/vPasteImage';
 import useDialog from '@/composables/useDialog';
-import ImagePreviewDialog from '@/components/dialog/ImagePreviewDialog.vue';
+import ImagePreviewDialog from '@/components/chat/chat-window/ImagePreviewDialog.vue';
 import { useInsertAtCursor } from '@/composables/useInsertAtCursor';
 import vCompositionEndEnter from '@/directives/vCompositionEndEnter';
 

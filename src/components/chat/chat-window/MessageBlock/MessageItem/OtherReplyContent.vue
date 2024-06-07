@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import useDialog from '@/composables/useDialog';
-import ImagePreviewDialog from '@/components/dialog/ImagePreviewDialog.vue';
+import ImagePreviewDialog from '@/components/chat/chat-window/ImagePreviewDialog.vue';
 
 const { openDialog } = useDialog();
 
@@ -31,12 +31,14 @@ const isImage = computed(() => props.message.includes('data:image'));
   <!-- 圖片 -->
   <template v-if="isImage">
     <div 
-      class="ml-1 bg-blue-500 p-2 rounded-b-lg"
-      :class="{'rounded-t-lg': !isReplyToMessage}" 
+      class=" bg-gray-200 p-2 rounded-b-lg"
+      :class="{
+        'rounded-t-lg': !isReplyToMessage
+      }"
     >
       <img
-        @click="openImagePreview"
-        class="cursor-pointer max-w-[200px] max-h-[200px] ml-auto rounded-lg ml-1" 
+        @click="openImagePreview" 
+        class="cursor-pointer max-w-[200px] max-h-[200px] rounded-lg" 
         :src="message" 
         alt="Image"
       >
@@ -45,8 +47,10 @@ const isImage = computed(() => props.message.includes('data:image'));
   <!-- 文字 -->
   <template v-else>
     <div 
-      class="ml-1 bg-blue-500 text-white rounded-b-lg p-2 whitespace-pre-wrap"
-      :class="{'rounded-t-lg': !isReplyToMessage}"
+      class="w-full bg-gray-200 p-2 rounded-b-lg whitespace-pre-wrap"
+      :class="{
+        'rounded-t-lg': !isReplyToMessage
+      }"  
       v-html="message"
     ></div>
   </template>

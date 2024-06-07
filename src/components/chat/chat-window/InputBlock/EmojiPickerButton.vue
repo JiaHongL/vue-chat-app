@@ -18,7 +18,6 @@ const togglePicker = () => {
 };
 
 const addEmoji = (emoji) => {
-  // showPicker.value = false; // 隱藏選擇器
   emit('selectEmoji', emoji.native);
 };
 </script>

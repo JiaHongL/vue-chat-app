@@ -4,7 +4,7 @@ import { useFileDialog } from '@vueuse/core';
 import { useChatStore } from '@/stores/chatStore';
 import { storeToRefs } from 'pinia';
 import useDialog from '@/composables/useDialog';
-import ImagePreviewDialog from '@/components/dialog/ImagePreviewDialog.vue';
+import ImagePreviewDialog from '@/components/chat/chat-window/ImagePreviewDialog.vue';
 
 const base64String = ref<string>('');
 const chatStore = useChatStore();
