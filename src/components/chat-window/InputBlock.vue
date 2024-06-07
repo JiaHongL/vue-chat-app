@@ -8,6 +8,8 @@ import vPasteImage from '@/directives/vPasteImage';
 import useDialog from '@/composables/useDialog';
 import ImagePreviewDialog from '@/components/dialog/ImagePreviewDialog.vue';
 import { useInsertAtCursor } from '@/composables/useInsertAtCursor';
+import vCompositionEndEnter from '@/directives/vCompositionEndEnter';
+
 const { saveCursorPosition, insertAtCursor } = useInsertAtCursor();
 const textarea = ref<HTMLTextAreaElement | null>(null);
 
@@ -24,9 +26,6 @@ const { chat, currentChatPartner } = storeToRefs(chatStore);
 const message = ref<string>('');
 
 const sendMessage = (event?: Event) => {
-    if (event) { event.preventDefault(); }
-    if ((event as KeyboardEvent)?.isComposing || message.value.trim() === '') { return; }
-
     const room = chat.value.currentRoom;
     const selectedMessageId = selectedMessage?.id || '';
 
@@ -85,9 +84,10 @@ const sendMessage = (event?: Event) => {
         rows="2" 
         style="line-height: 1.5;"
         :disabled="!currentChatPartner?.username"
+        v-composition-end-enter
+        @compositionEndEnter="sendMessage"
         @focus="saveCursorPosition"
         @blur="saveCursorPosition"
-        @keydown.enter="sendMessage"
         v-paste-image 
         @pasteImage="handlePasteImage"
       ></textarea>
