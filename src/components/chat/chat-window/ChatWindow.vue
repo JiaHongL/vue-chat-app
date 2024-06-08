@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, readonly, provide, onUnmounted, watchEffect, watch } from 'vue';
+import { ref, readonly, provide, onUnmounted, watchEffect, watch, type Ref } from 'vue';
 import { ChatWindowShareStateKey } from './chat-window-share-state-key';
 import type { RoomMessage } from '@/stores/models';
 import { useChatStore } from '@/stores/chatStore';
 import { useViewStore } from '@/stores/viewStore';
 import { Subject } from 'rxjs';
 import { storeToRefs } from 'pinia';
+import type { CustomStoreToRefs } from 'pinia-extensions';
 
 const props = defineProps<{
   usageContext: string;
@@ -35,8 +36,8 @@ const {
 const { 
   currentChatPartner,
   chat,
-  isPageVisible 
-} = storeToRefs(chatStore);
+  isPageVisible,
+} = storeToRefs(chatStore) as unknown as CustomStoreToRefs<typeof chatStore>;
 
 const viewStore = useViewStore();
 
@@ -58,6 +59,7 @@ const stopAutoMarkReadWatchEffect = watch([
   currentView,
   unreadCounts
 ]) =>  {
+
     const watchObj = {
       // 需要監聽的屬性
       room: room, 

@@ -2,15 +2,45 @@
 import { useChatStore } from '@/stores/chatStore';
 import { useViewStore } from '@/stores/viewStore';
 import { storeToRefs } from 'pinia';
-
+import { useTitle } from '@vueuse/core'
+import { computed, onUnmounted, watch } from 'vue';
+import { Subject, interval, map, startWith, takeUntil, tap } from 'rxjs';
 
 const chatStore = useChatStore();
-const { chat } = storeToRefs(chatStore);
-
+const { chat , allUnreadCount} = storeToRefs(chatStore);
 const viewStore = useViewStore();
-const { currentView } = storeToRefs(viewStore);
+const { currentView , isRealMobile} = storeToRefs(viewStore);
 
 chatStore.connectWebSocket();
+
+const title = useTitle();
+const destroy$ = new Subject<void>();
+const closeAllUnreadCountWatch = watch(()=> allUnreadCount.value, (newAllUnreadCount) => {
+  if (isRealMobile.value) { return; }
+  destroy$.next();
+  if (newAllUnreadCount > 0) {
+    interval(700).pipe(
+      startWith(0),
+      map(() => title.value),
+      tap(currentTitle => {
+        if (currentTitle?.includes('New messages')) {
+          title.value = `VueChatApp`;
+        } else {
+          title.value = `🔔 New messages ( ${newAllUnreadCount} )`;
+        }
+      }),
+      takeUntil(destroy$)
+    ).subscribe();
+  }else{
+    title.value = 'VueChatApp';
+  }
+});
+
+onUnmounted(() => {
+  destroy$.next();
+  destroy$.complete();
+  closeAllUnreadCountWatch();
+})
 
 </script>
 

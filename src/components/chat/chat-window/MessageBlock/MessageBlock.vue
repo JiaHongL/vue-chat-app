@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue';
+import { computed, inject, ref} from 'vue';
 import { useChatStore } from '@/stores/chatStore';
 import { storeToRefs } from 'pinia';
 import { useSelection } from '@/composables/useSelection';
@@ -7,7 +7,8 @@ import { useViewStore } from '@/stores/viewStore';
 import { useSubscription } from '@vueuse/rxjs'
 import { ChatWindowShareStateKey } from '../chat-window-share-state-key';
 import type { ChatWindowShareState } from '../chat-window-share-state.model';
-import { debounceTime, delay, filter, tap } from 'rxjs';
+import { debounceTime, delay, filter } from 'rxjs';
+import type { CustomStoreToRefs } from 'pinia-extensions';
 
 const messageWrapper = ref<HTMLElement | null>(null)
 
@@ -17,7 +18,7 @@ const {
   currentChatMessages,
   currentChatPartner,
   isAutoScrollEnabled
-} = storeToRefs(chatStore);
+} = storeToRefs(chatStore) as unknown as CustomStoreToRefs<typeof chatStore>;
 
 const viewStore = useViewStore();
 const { 
