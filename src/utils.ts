@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { useDateFormat } from '@vueuse/core'
 
 export function safeHtml(value: string): string {
   let div = document.createElement('div');
@@ -6,9 +6,10 @@ export function safeHtml(value: string): string {
   return div.textContent || div.innerText || '';
 }
 
-export function formatDate(date:any, dateFormat = 'HH:mm'): string {
+export function formatDate(date: any, dateFormat = 'HH:mm'): string {
   if (!date) return '';
-  return format(date, dateFormat);
+  const formattedDate = useDateFormat(date, dateFormat);
+  return formattedDate.value;
 }
 
 export function truncate(value: string, limit: number): string {
