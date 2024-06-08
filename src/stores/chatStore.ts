@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
-import { initialState, type GeneralMessage, type PrivateMessage, type RoomMessage, type User, type UserInfo } from './models';
+import { getInitialState, type GeneralMessage, type PrivateMessage, type RoomMessage, type User, type UserInfo } from './models';
 import { ref, computed } from 'vue';
 import { useUserStore } from './userStore';
 import { getUserInfo, getUsers } from '@/api/user';
 
 export const useChatStore = defineStore('chat', () => {
-  const chat = ref(initialState);
+  const chat = ref(getInitialState());
   let socket: WebSocket | null = null;
 
   const connectWebSocket = async () => {
@@ -66,9 +66,9 @@ export const useChatStore = defineStore('chat', () => {
           };
           break;
         case 'updateUserList':
-          // chat.value.disableAutoScroll();
+          useChatStore().disableAutoScroll();
           chat.value.users = message.data;
-          // chat.value.enableAutoScroll();
+          useChatStore().enableAutoScroll();
           break;
         case 'messageRecalled':
           chat.value = {
@@ -90,7 +90,7 @@ export const useChatStore = defineStore('chat', () => {
               return msg;
             }),
           }
-          // chat.value.enableAutoScroll();
+          useChatStore().enableAutoScroll();
           break;
         case 'messageUndoRecalled':
           chat.value = {
@@ -112,10 +112,10 @@ export const useChatStore = defineStore('chat', () => {
               return msg;
             }),
           };
-          // chat.value.enableAutoScroll();
+          useChatStore().enableAutoScroll();
         break;
         case 'privateMessageRead':
-          // chat.value.disableAutoScroll();
+          useChatStore().disableAutoScroll();
           chat.value = {
             ...chat.value,
             privateMessages: chat.value.privateMessages.map(msg => {
@@ -128,10 +128,10 @@ export const useChatStore = defineStore('chat', () => {
               return msg;
             }),
           };
-          // chat.value.enableAutoScroll();
+          useChatStore().enableAutoScroll();
           break;
         case 'messagesReadByUpdated':
-          // chat.value.disableAutoScroll();
+          useChatStore().disableAutoScroll();
           chat.value = {
             ...chat.value,
             generalMessages: chat.value.generalMessages.map(msg => {
@@ -145,7 +145,7 @@ export const useChatStore = defineStore('chat', () => {
               return msg;
             }),
           };
-          // chat.value.enableAutoScroll();
+          useChatStore().enableAutoScroll();
           break;
         default:
           break
@@ -331,7 +331,7 @@ export const useChatStore = defineStore('chat', () => {
             "id": id
         }
     }));
-    // store.disableAutoScroll();
+    useChatStore().disableAutoScroll();
   };
 
   const undoRecallMessage = (room: string, id: any) =>{
@@ -343,11 +343,11 @@ export const useChatStore = defineStore('chat', () => {
             "id": id
         }
     }));
-    // store.disableAutoScroll();
+    useChatStore().disableAutoScroll();
   };
 
   const reset = () => {
-    chat.value = initialState;
+    chat.value = getInitialState();
   }
 
   const methodList = {
@@ -378,4 +378,7 @@ export const useChatStore = defineStore('chat', () => {
     ...computedList,
   };
 
+},{
+  usePageVisibility: true,
+  useAutoScroll: true
 });

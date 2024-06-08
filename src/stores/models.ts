@@ -5,10 +5,10 @@ export interface GeneralMessage {
     message: string;
     sender: string;
     date: string;
-    isRecalled:boolean;
+    isRecalled: boolean;
     readBy: string[];
-    replyToMessageId:string;
-    replyToMessage:GeneralMessage | null;
+    replyToMessageId: string;
+    replyToMessage: GeneralMessage | null;
 }
 
 export interface PrivateMessage {
@@ -19,9 +19,9 @@ export interface PrivateMessage {
     to: string;
     date: string;
     isRead: boolean;
-    isRecalled:boolean;
-    replyToMessageId:string;
-    replyToMessage:PrivateMessage | null;
+    isRecalled: boolean;
+    replyToMessageId: string;
+    replyToMessage: PrivateMessage | null;
 }
 
 export type RoomMessage = GeneralMessage & PrivateMessage;
@@ -47,16 +47,20 @@ export interface ChatState {
     unreadCounts: { [room: string]: number };
 }
 
-export const initialState: ChatState = {
-    isSocketStable: false,
-    userInfo: {
-        username: '',
-        status: null,
-        avatar: '',
-    },
-    currentRoom: '',
-    users: [],
-    generalMessages: [],
-    privateMessages: [],
-    unreadCounts: {}, // 用於存儲各個聊天室的未讀訊息計數
-};
+export const getInitialState = (): ChatState => {
+    return JSON.parse(JSON.stringify(
+        {
+            isSocketStable: false,
+            userInfo: {
+                username: '',
+                status: null,
+                avatar: '',
+            },
+            currentRoom: '',
+            users: [],
+            generalMessages: [],
+            privateMessages: [],
+            unreadCounts: {}, // 用於存儲各個聊天室的未讀訊息計數
+        }
+    ));
+}   

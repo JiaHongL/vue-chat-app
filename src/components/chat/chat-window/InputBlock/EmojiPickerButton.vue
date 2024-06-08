@@ -17,7 +17,7 @@ const togglePicker = () => {
   showPicker.value = !showPicker.value;
 };
 
-const addEmoji = (emoji) => {
+const addEmoji = (emoji:any) => {
   emit('selectEmoji', emoji.native);
 };
 </script>

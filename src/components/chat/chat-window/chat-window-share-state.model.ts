@@ -1,6 +1,9 @@
 import type { RoomMessage } from "@/stores/models";
+import type { Observable } from "rxjs";
+import type { Ref } from "vue/dist/vue.js";
 
 export interface ChatWindowShareState {
-  selectedReplyMessage: RoomMessage;
-  updateSelectedReplyMessage: (value: RoomMessage |  null) => void;
+  chatBoxScrollToBottomObs$:Observable<any>;
+  selectedReplyMessage: Ref<RoomMessage>;
+  updateSelectedReplyMessage: (value: any |  null) => void;
 }

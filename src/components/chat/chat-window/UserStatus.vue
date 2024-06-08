@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useChatStore } from '@/stores/chatStore';
+import { useViewStore } from '@/stores/viewStore';
 import { storeToRefs } from 'pinia';
 
 const chatStore = useChatStore();
@@ -9,16 +10,19 @@ const {
   currentChatPartner
 } = storeToRefs(chatStore);
 
+const viewStore = useViewStore();
+
 </script>
 
 <template>
-  <!-- (click)="isShowEmojiMart.set(false);" -->
   <div 
     class="flex flex-shrink-0 items-center p-4 border-b overflow-hidden" 
   >
-    <!-- (click)="viewService.goBack();isShowEmojiMart.set(false)" -->
     <div class="flex items-center p-2 bg-white">
-        <button class="block sm:hidden text-blue-500 flex items-center">
+        <button 
+          class="block sm:hidden text-blue-500 flex items-center"
+          @click="viewStore.goBack()"
+        >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>

@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import Avatar from '@/components/shared/Avatar.vue';
 import { useChatStore } from '@/stores/chatStore';
+import { useViewStore } from '@/stores/viewStore';
 import { storeToRefs } from 'pinia'
 
+const viewStore = useViewStore();
 const chatStore = useChatStore();
 const { setCurrentRoom } = chatStore;
 const {
@@ -24,9 +26,8 @@ const {
       </div>
       <div class="flex-0 mb-3">
         <ul class="overflow-hidden">
-          <!-- (click)="store.setCurrentRoom('private_' + store.userInfo()?.username + '_' + user.username);viewService.goToChatView();" -->
           <li v-for="user in onlineUsers" :key="user.username"
-            @click="setCurrentRoom('private_' + chat?.userInfo?.username + '_' + user.username)"
+            @click="setCurrentRoom('private_' + chat?.userInfo?.username + '_' + user.username);viewStore.goToChatView()"
             class="cursor-pointer flex items-center p-2 rounded-lg shadow mb-2 bg-white">
             <Avatar :username="user.username" />
             <div>
@@ -44,9 +45,8 @@ const {
       </div>
       <div class="flex-0">
         <ul class="overflow-hidden pb-[250px] sm:pb-0">
-          <!-- (click)="store.setCurrentRoom('private_' + store.userInfo()?.username + '_' + user.username);viewService.goToChatView()" -->
           <li v-for="user in offlineUsers" :key="user.username"
-            @click="setCurrentRoom('private_' + chat?.userInfo?.username + '_' + user.username)"
+            @click="setCurrentRoom('private_' + chat?.userInfo?.username + '_' + user.username);viewStore.goToChatView()"
             class="cursor-pointer flex items-center p-2 rounded-lg shadow mb-2 bg-gray-200 opacity-50">
             <Avatar :username="user.username" />
             <div>

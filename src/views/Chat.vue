@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { useChatStore } from '@/stores/chatStore';
+import { useViewStore } from '@/stores/viewStore';
 import { storeToRefs } from 'pinia';
 
 
 const chatStore = useChatStore();
 const { chat } = storeToRefs(chatStore);
+
+const viewStore = useViewStore();
+const { currentView } = storeToRefs(viewStore);
 
 chatStore.connectWebSocket();
 
@@ -20,12 +24,11 @@ chatStore.connectWebSocket();
       class="font-sans bg-gray-200 h-screen min-w-[700px]  flex items-center justify-center"
     >
       <div class="flex w-[80%] h-[85%] min-w-[700px] bg-white rounded-lg shadow-lg">
-          <!-- Sidebar -->
+          <!-- 左側 訊息通知 -->
           <ConversationList />
-          <!-- Chat area -->
-          <!-- usageContext="desktop" -->
-          <ChatWindow />
-          <!-- Online/Offline users list -->
+          <!-- 中間 對話視窗 -->
+          <ChatWindow usageContext="desktop" />
+          <!-- 右側 好友列表 -->
           <UserStatusList />
       </div>
     </div>
@@ -38,22 +41,18 @@ chatStore.connectWebSocket();
       <div class="flex flex-col w-screen bg-white rounded-lg shadow-lg">
           <div class="w-screen margin-2">
             <!-- 好友頁 -->
-            <!-- [hidden]="viewService.currentView()!=='friendList'" -->
-            <div>
+            <div v-show="currentView==='friendListView'">
                 <UserStatusList />
                 <BottomNavigation />
             </div>
             <!-- 通知訊息頁 -->
-            <!-- [hidden]="viewService.currentView()!=='chatList'" -->
-            <div>
+            <div v-show="currentView==='chatListView'">
                 <ConversationList />
                 <BottomNavigation />
             </div>
             <!-- 對話頁面 -->
-            <!-- [hidden]="viewService.currentView()!=='chatWindow'" -->
-            <div>
-              <!-- <app-chat-window usageContext="mobile" /> -->
-              <ChatWindow />
+            <div v-show="currentView==='chatWindowView'">
+              <ChatWindow usageContext="mobile" />
             </div>
           </div>
       </div>

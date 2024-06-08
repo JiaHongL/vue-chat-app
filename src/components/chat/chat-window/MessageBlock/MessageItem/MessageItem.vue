@@ -1,12 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { safeHtml, formatDate , truncate} from '@/utils';
 import { useChatStore } from '@/stores/chatStore';
 import { inject } from 'vue';
 import { ChatWindowShareStateKey } from '../../chat-window-share-state-key';
+import type { ChatWindowShareState } from '../../chat-window-share-state.model';
 
 const { recallMessage, undoRecallMessage } = useChatStore();
 
-const chatWindowShareState = inject(ChatWindowShareStateKey);
+const chatWindowShareState = inject(ChatWindowShareStateKey) as ChatWindowShareState;
 
 const props = defineProps({
   isOwnMessage: {
@@ -32,6 +33,13 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['selectDropdownIndex']);
+
+const scrollToMessage = (messageId:string) => {
+  const messageElement = document.getElementById(`message-${messageId}`);
+  if (messageElement) {
+    messageElement.scrollIntoView({ behavior: 'smooth' });
+  }
+};
 
 </script>
 
@@ -76,8 +84,8 @@ const emit = defineEmits(['selectDropdownIndex']);
           <div>
               <!-- 有針對某個訊息進行回覆 -->
               <template v-if="message.replyToMessage">
-                <!-- (click)="scrollToMessage(message?.replyToMessage?.id)"  -->
                 <div 
+                  @click="scrollToMessage(message?.replyToMessage?.id)"
                   class="cursor-pointer ml-1 pb-1  flex bg-blue-500 rounded-t-lg text-white whitespace-pre-wrap border-y border-b-slate-300"
                 >
                   <!-- 大頭貼 -->
@@ -138,8 +146,8 @@ const emit = defineEmits(['selectDropdownIndex']);
           <div class="flex">
             <div>
               <template v-if="message.replyToMessage">
-                <!-- (click)="scrollToMessage(message?.replyToMessage?.id)"  -->
                 <div
+                  @click="scrollToMessage(message?.replyToMessage?.id)"
                   class="cursor-pointer  pb-1  flex bg-gray-200 rounded-t-lg whitespace-pre-wrap border-y border-b-slate-300"
                 >
                   <div class="flex shrink-0 items-center">

@@ -7,9 +7,17 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
+import { PageVisibilityPlugin } from './stores/plugins/pageVisibilityPlugin'
+import { AutoScrollPlugin } from './stores/plugins/autoAutoScrollPlugin'
+
 const app = createApp(App)
 
-app.use(createPinia())
+const pinia = createPinia()
+pinia.use(PageVisibilityPlugin)
+pinia.use(AutoScrollPlugin)
+
+app.use(pinia)
+
 app.use(router)
 
 app.mount('#app')

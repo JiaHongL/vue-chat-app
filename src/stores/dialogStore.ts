@@ -51,9 +51,14 @@ export const useDialogStore = defineStore('dialog', () => {
     dialogs.value = dialogs.value.filter(dialog => dialog.id !== id);
   };
 
+  const reset = () => {
+    dialogs.value = [];
+  }
+
   return {
     dialogs,
-    addDialog
+    addDialog,
+    reset
   };
 
 });

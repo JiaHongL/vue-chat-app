@@ -25,15 +25,16 @@ const { chat, currentChatPartner } = storeToRefs(chatStore);
 
 const message = ref<string>('');
 
-const sendMessage = (event?: Event) => {
-    const room = chat.value.currentRoom;
-    const selectedMessageId = selectedMessage?.id || '';
+const sendMessage = () => {
+  if(message.value.trim() === '') return;
+  const room = chat.value.currentRoom;
+  const selectedMessageId = selectedMessage?.value.id || '';
 
-    room === 'general' ? 
-    sendGeneralMessage(message.value, selectedMessageId): 
-    sendPrivateMessage(message.value, selectedMessageId);
+  room === 'general' ? 
+  sendGeneralMessage(message.value, selectedMessageId): 
+  sendPrivateMessage(message.value, selectedMessageId);
 
-    clearState();
+  clearState();
   }
 
   const clearState = () => {

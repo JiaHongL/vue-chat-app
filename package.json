@@ -13,10 +13,12 @@
   "dependencies": {
     "@vueuse/components": "^10.10.0",
     "@vueuse/core": "^10.10.0",
+    "@vueuse/rxjs": "^10.10.0",
     "axios": "^1.7.2",
     "date-fns": "^3.6.0",
     "emoji-mart-vue-fast": "^15.0.2",
     "pinia": "^2.1.7",
+    "rxjs": "^7.8.1",
     "vee-validate": "^4.13.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
