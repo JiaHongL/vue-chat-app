@@ -34,7 +34,7 @@ const send = () => {
     <div class="flex justify-between items-center mb-6">
         <img 
           :src="data.base64String" 
-          class="flex-1 object-contain max-w-[450px] max-w-h-[450px] sm:max-w-[800px] sm:max-h-[800] mx-auto" 
+          class="flex-1 object-contain max-w-[450px] max-w-h-[450px] sm:max-w-[800px] sm:max-h-[550px] mx-auto" 
         />
     </div>
 
