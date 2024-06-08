@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import { PropType } from "vue";
+import type { PropType } from "vue";
 import useDialog from '@/composables/useDialog';
 
 const props = defineProps({

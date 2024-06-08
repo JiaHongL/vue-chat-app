@@ -3,7 +3,7 @@ import { login } from '@/api/user';
 import * as yup from 'yup';
 import { useForm } from 'vee-validate';
 import RegisterDialog from '@/components/login/RegisterDialog.vue';
-import useDialog from '@/composables/useDialog.ts';
+import useDialog from '@/composables/useDialog';
 import useNotice from '@/composables/useNotice';
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/userStore';
