@@ -6,7 +6,10 @@ interface CursorPosition {
 }
 
 export function useInsertAtCursor() {
-  const cursorPosition = ref<CursorPosition | null>(null);
+  const cursorPosition = ref<CursorPosition | null>({
+    start: 0,
+    end: 0,
+  });
 
   const saveCursorPosition = (event: FocusEvent) => {
     const textarea = event.target as HTMLTextAreaElement;
@@ -23,7 +26,6 @@ export function useInsertAtCursor() {
       const before = message.substring(0, start);
       const after = message.substring(end);
       const newMessage = before + text + after;
-
       // 更新光標位置
       cursorPosition.value.start = cursorPosition.value.end = start + text.length;
       return newMessage;
