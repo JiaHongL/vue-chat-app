@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import data from 'emoji-mart-vue-fast/data/all.json';
+import data from '@/assets/emoji.all.json';
 import { Picker, EmojiIndex } from 'emoji-mart-vue-fast/src';
 import { useChatStore } from '@/stores/chatStore';
 import { storeToRefs } from 'pinia';
