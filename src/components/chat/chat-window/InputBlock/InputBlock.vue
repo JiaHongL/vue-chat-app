@@ -28,7 +28,7 @@ const message = ref<string>('');
 const sendMessage = () => {
   if(message.value.trim() === '') return;
   const room = chat.value.currentRoom;
-  const selectedMessageId = selectedMessage?.value.id || '';
+  const selectedMessageId = selectedMessage?.value?.id || '';
 
   room === 'general' ? 
   sendGeneralMessage(message.value, selectedMessageId): 
