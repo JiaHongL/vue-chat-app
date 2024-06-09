@@ -51,6 +51,7 @@ export const useViewStore = defineStore('view', () => {
 
   const goBack = () => {
     currentView.value = previousView.value;
+    previousView.value = 'chatWindowView';
   };
 
   const resetScroll = (ms = 200) => {
@@ -67,6 +68,7 @@ export const useViewStore = defineStore('view', () => {
 
   return {
     currentView,
+    previousView,
     isRealMobile,
     isMobile,
     goToChatView,

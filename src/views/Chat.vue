@@ -3,7 +3,7 @@ import { useChatStore } from '@/stores/chatStore';
 import { useViewStore } from '@/stores/viewStore';
 import { storeToRefs } from 'pinia';
 import { useTitle } from '@vueuse/core'
-import { computed, onUnmounted, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { Subject, interval, map, startWith, takeUntil, tap } from 'rxjs';
 
 const chatStore = useChatStore();
@@ -69,27 +69,35 @@ onUnmounted(() => {
       class="font-sans bg-gray-200 h-100 w-screen"
     >
       <div class="flex flex-col w-screen bg-white rounded-lg shadow-lg">
-          <div class="w-screen margin-2">
-            <!-- 好友頁 -->
-            <div v-show="currentView==='friendListView'">
-                <UserStatusList />
-                <BottomNavigation />
-            </div>
-            <!-- 通知訊息頁 -->
-            <div v-show="currentView==='chatListView'">
-                <ConversationList />
-                <BottomNavigation />
-            </div>
-            <!-- 對話頁面 -->
-            <div v-show="currentView==='chatWindowView'">
-              <ChatWindow usageContext="mobile" />
-            </div>
+        <div class="w-screen margin-2">
+          <!-- 好友頁 -->
+          <div v-show="currentView === 'friendListView'">
+            <UserStatusList />
+            <BottomNavigation />
           </div>
+
+          <!-- 通知訊息頁 -->
+          <div v-show="currentView === 'chatListView'">
+            <ConversationList />
+            <BottomNavigation />
+          </div>
+
+          <!-- 對話頁面 -->
+          <div 
+            :class="{ 
+              'transform translate-x-0': currentView === 'chatWindowView', 
+              'transform translate-x-full': currentView !== 'chatWindowView' 
+            }" 
+            class="
+              absolute top-0 w-full h-full bg-white
+              transition-transform duration-300 ease-linear translate-x-full 
+            ">
+            <ChatWindow usageContext="mobile" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
