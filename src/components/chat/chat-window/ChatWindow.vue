@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, readonly, provide, onUnmounted, watchEffect, watch, type Ref } from 'vue';
+import { ref, readonly, provide, onUnmounted, watch } from 'vue';
 import { ChatWindowShareStateKey } from './chat-window-share-state-key';
 import type { RoomMessage } from '@/stores/models';
 import { useChatStore } from '@/stores/chatStore';
@@ -46,7 +46,7 @@ const {
   isMobile
 } = storeToRefs(viewStore);
 
-const stopAutoMarkReadWatchEffect = watch([
+const stopAutoMarkReadWatch = watch([
   ()=> chat.value.currentRoom, // 監聽當前房間，可能是 private_XXX_YYY 或 private_YYY_XXX，所以需要監聽。
   ()=> currentChatPartner.value?.username, // 監聽當前聊天對象
   ()=> isPageVisible.value, // 監聽當前頁面是否可見
@@ -139,7 +139,7 @@ onUnmounted(() => {
   chatBoxScrollToBottomSubject.complete();
   stopChatPartnerWatch();
   closeNewMessageWatch();
-  stopAutoMarkReadWatchEffect();
+  stopAutoMarkReadWatch();
 });
 
 </script>

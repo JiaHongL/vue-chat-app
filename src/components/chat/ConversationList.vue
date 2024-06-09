@@ -11,8 +11,6 @@ const chatStore = useChatStore();
 const { setCurrentRoom } = chatStore;
 const {
   chat,
-  onlineUsers,
-  offlineUsers,
   currentChatPartner,
   messageNotifications
 } = storeToRefs(chatStore);
@@ -152,6 +150,4 @@ const {
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

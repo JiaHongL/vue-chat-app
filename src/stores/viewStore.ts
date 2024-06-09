@@ -1,6 +1,6 @@
 // stores/viewStore.ts
 import { defineStore } from 'pinia';
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useEventListener, useWindowSize } from '@vueuse/core';
 
 type View = 'friendListView' | 'chatListView' | 'chatWindowView';

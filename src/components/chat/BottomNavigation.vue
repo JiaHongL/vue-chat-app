@@ -65,6 +65,4 @@ const { currentView } = storeToRefs(viewStore);
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
