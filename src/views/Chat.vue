@@ -84,20 +84,24 @@ onUnmounted(() => {
 
           <!-- 對話頁面 -->
           <div 
-            :class="{ 
-              'transform translate-x-0': currentView === 'chatWindowView', 
-              'transform translate-x-full': currentView !== 'chatWindowView' 
-            }" 
             class="
               absolute top-0 w-full h-full bg-white
               transition-transform duration-300 ease-linear translate-x-full 
-            ">
+            "
+            :class="{ 
+              'open': currentView === 'chatWindowView', 
+              'close': currentView !== 'chatWindowView' 
+            }" >
             <ChatWindow usageContext="mobile" />
           </div>
+          
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.open{transform: translateX(0);}
+.close{transform: translateX(100%);}
+</style>
