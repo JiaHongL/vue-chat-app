@@ -15,8 +15,8 @@ const userStore = useUserStore();
 
 const { meta, handleSubmit, defineField } = useForm({
   initialValues: {
-    username: '',
-    password: ''
+    username: 'Joe',
+    password: 'abc'
   },
   validationSchema: {
     username: yup.string().required('username is required'),
