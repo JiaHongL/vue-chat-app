@@ -8,10 +8,11 @@ import { Subject, interval, map, startWith, takeUntil, tap } from 'rxjs';
 
 const chatStore = useChatStore();
 const { chat , allUnreadCount} = storeToRefs(chatStore);
+const cleanupPageVisibility = chatStore.setupPageVisibility();
+chatStore.connectWebSocket();
+
 const viewStore = useViewStore();
 const { currentView , isRealMobile, isMobile} = storeToRefs(viewStore);
-
-chatStore.connectWebSocket();
 
 const title = useTitle();
 const destroy$ = new Subject<void>();
@@ -50,6 +51,7 @@ onUnmounted(() => {
   destroy$.next();
   destroy$.complete();
   closeAllUnreadCountWatch();
+  cleanupPageVisibility();
 })
 
 </script>

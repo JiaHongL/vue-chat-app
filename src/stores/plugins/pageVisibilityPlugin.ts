@@ -1,5 +1,5 @@
-import type { PiniaPluginContext } from 'pinia'
-import { ref, type Ref, onMounted, onUnmounted } from 'vue'
+import type { PiniaPluginContext } from 'pinia';
+import { ref } from 'vue';
 
 export function PageVisibilityPlugin({ store, options }: PiniaPluginContext) {
   if (options.usePageVisibility) {
@@ -9,14 +9,16 @@ export function PageVisibilityPlugin({ store, options }: PiniaPluginContext) {
       isPageVisible.value = !document.hidden;
     }
 
-    onMounted(() => {
-      document.addEventListener('visibilitychange', handleVisibilityChange)
-    })
+    const setupPageVisibility = () => {
+      document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    onUnmounted(() => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange)
-    })
+      // 返回一個清理函數
+      return () => {
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
+      };
+    };
 
-    store.isPageVisible = isPageVisible
+    store.isPageVisible = isPageVisible;
+    store.setupPageVisibility = setupPageVisibility;
   }
 }

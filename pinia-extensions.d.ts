@@ -19,6 +19,7 @@ declare module 'pinia' {
 declare module 'pinia' {
   export interface DefineStoreOptionsBase<S, Store> {
     useAutoScroll?: boolean
+    setupPageVisibility?: () => () => void
   }
 
   export interface PiniaCustomProperties {
