@@ -1,33 +1,72 @@
 # vue-chat-app
 
-This template should help get you started developing with Vue 3 in Vite.
+此為 Vue + Pinia + Websocket 的小專案，主要練習使用 Pinia 做狀態管理。
 
-## Recommended IDE Setup
+> 若想練習 web socket 或其他框架的實現，可搭配 [chat-app-backend](https://github.com/JiaHongL/chat-app-backend) 這個後端專案。
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 此專案已實現功能
 
-## Type Support for `.vue` Imports in TS
+- 大廳功能 (多對多)
+- 私訊功能 (一對一)
+- 好友即時上線狀態
+- 回覆指定訊息
+- 收回訊息 & 恢復訊息
+- 已讀功能
+- 新訊息通知
+- 傳送圖片 (支援截圖貼上)
+- 左右滑動切換頁面 (mobile)
+- 右滑關閉聊天室窗 (mobile)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## 系統架構圖
 
-## Customize configuration
+![alt text](./readme/VueChatApp.png)
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## 相關畫面
 
-## Project Setup
+### 登入畫面
 
-```sh
-npm install
-```
+![alt text](./readme/image.png)
 
-### Compile and Hot-Reload for Development
+### 註冊畫面
 
-```sh
-npm run dev
-```
+![alt text](/readme/image00.png)
 
-### Type-Check, Compile and Minify for Production
+### 註冊失敗提示視窗
 
-```sh
-npm run build
-```
+![alt text](./readme/image-12.png)
+
+### 大廳聊天室
+
+![alt text](./readme/image-1.png)
+
+### 私人聊天室
+
+![alt text](./readme/image-11.png)
+
+### emoji 選擇器
+
+![alt text](./readme/image-3.png)
+
+### 傳送圖片預覽
+
+![alt text](./readme/image-4.png)
+
+### 圖片預覽
+
+![alt text](./readme/image-5.png)
+
+### 可對訊息收回或回覆
+
+![alt text](./readme/image-7.png)
+
+### 指定訊息回覆的預覽
+
+![alt text](./readme/image-8.png)
+
+### 收回訊息後的顯示 (也可恢復訊息)
+
+![alt text](./readme/image-9.png)
+
+### mobile 畫面 (好友列表 + 訊息列表 + 聊天室)
+
+![alt text](./readme/image-10.png)

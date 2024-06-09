@@ -34,7 +34,7 @@ const formattedDate = computed(() => {
 </script>
 <template>
   <div 
-    class="flex flex-col justify-end text-right text-xs text-gray-500 mt-1"
+    class="flex flex-col min-w-[40px] justify-end text-right text-xs text-gray-500 mt-1"
   >
     <!-- 私人訊息已讀 -->
     <template v-if="isPrivateMessageRead">
