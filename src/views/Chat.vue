@@ -8,7 +8,7 @@ import { Subject, interval, map, startWith, takeUntil, tap } from 'rxjs';
 
 const chatStore = useChatStore();
 const { chat , allUnreadCount} = storeToRefs(chatStore);
-const cleanupPageVisibility = chatStore.setupPageVisibility();
+const cleanupPageVisibility = chatStore?.setupPageVisibility();
 chatStore.connectWebSocket();
 
 const viewStore = useViewStore();

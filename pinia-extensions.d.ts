@@ -12,6 +12,7 @@ declare module 'pinia' {
   }
   export interface PiniaCustomProperties {
     isPageVisible: Ref<boolean>
+    setupPageVisibility: () => () => void
   }
 }
 
@@ -19,11 +20,10 @@ declare module 'pinia' {
 declare module 'pinia' {
   export interface DefineStoreOptionsBase<S, Store> {
     useAutoScroll?: boolean
-    setupPageVisibility?: () => () => void
   }
 
   export interface PiniaCustomProperties {
-    autoScroll?: Ref<boolean>
+    autoScroll: Ref<boolean>
     isAutoScrollEnabled: Ref<boolean>
     enableAutoScroll: (isTimeoutSet?: boolean) => void
     disableAutoScroll: () => void
