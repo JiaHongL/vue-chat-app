@@ -47,7 +47,7 @@ const isImage = computed(() => props.message.includes('data:image'));
   <!-- 文字 -->
   <template v-else>
     <div 
-      class="w-full bg-gray-200 p-2 rounded-b-lg whitespace-pre-wrap"
+      class="w-full bg-gray-200 p-2 rounded-b-lg whitespace-pre-wrap break-all text-pretty"
       :class="{
         'rounded-t-lg': !isReplyToMessage
       }"  

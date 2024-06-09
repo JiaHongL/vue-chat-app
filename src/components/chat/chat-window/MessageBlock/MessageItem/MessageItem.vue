@@ -86,7 +86,7 @@ const scrollToMessage = (messageId:string) => {
               <template v-if="message.replyToMessage">
                 <div 
                   @click="scrollToMessage(message?.replyToMessage?.id)"
-                  class="cursor-pointer ml-1 pb-1  flex bg-blue-500 rounded-t-lg text-white whitespace-pre-wrap border-y border-b-slate-300"
+                  class="cursor-pointer ml-1 pb-1  flex bg-blue-500 rounded-t-lg text-white whitespace-pre-wrap break-all border-y border-b-slate-300"
                 >
                   <!-- 大頭貼 -->
                   <div class="flex shrink-0 items-center">
@@ -148,7 +148,7 @@ const scrollToMessage = (messageId:string) => {
               <template v-if="message.replyToMessage">
                 <div
                   @click="scrollToMessage(message?.replyToMessage?.id)"
-                  class="cursor-pointer  pb-1  flex bg-gray-200 rounded-t-lg whitespace-pre-wrap border-y border-b-slate-300"
+                  class="cursor-pointer  pb-1  flex bg-gray-200 rounded-t-lg whitespace-pre-wrap break-all border-y border-b-slate-300"
                 >
                   <div class="flex shrink-0 items-center">
                     <Avatar class="w-6 h-6 rounded-full mx-2 bg-white" :username="message?.replyToMessage?.sender" />
