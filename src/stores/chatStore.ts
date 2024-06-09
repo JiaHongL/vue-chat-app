@@ -21,7 +21,7 @@ export const useChatStore = defineStore('chat', () => {
       const result2 = await getUsers();
       chat.value.users = result2.data as User[];
     } catch (error) {
-      alert('Error fetching');
+      console.error('Failed to get user info and users', error);
     }
 
     const wsUrl = import.meta.env.VITE_WS_BASE_URL

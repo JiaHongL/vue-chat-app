@@ -1,6 +1,7 @@
 // src/axios.js
 import axios from 'axios';
 import { useUserStore } from '@/stores/userStore';
+import useNotice from '@/composables/useNotice';
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -25,7 +26,14 @@ instance.interceptors.response.use(
   response => {
     return response;
   },
-  error => {
+  async (error) => {
+    if (error.response.status === 403) {
+      const { notice } = useNotice();
+      const userStore = useUserStore();
+      await notice('You are not authorized to access this resource').onClose.then(() => {
+        userStore.logout();
+      });
+    }
     return Promise.reject(error);
   }
 );
