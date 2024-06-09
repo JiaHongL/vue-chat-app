@@ -9,7 +9,7 @@ import { Subject, interval, map, startWith, takeUntil, tap } from 'rxjs';
 const chatStore = useChatStore();
 const { chat , allUnreadCount} = storeToRefs(chatStore);
 const viewStore = useViewStore();
-const { currentView , isRealMobile} = storeToRefs(viewStore);
+const { currentView , isRealMobile, isMobile} = storeToRefs(viewStore);
 
 chatStore.connectWebSocket();
 
@@ -35,6 +35,16 @@ const closeAllUnreadCountWatch = watch(()=> allUnreadCount.value, (newAllUnreadC
     title.value = 'VueChatApp';
   }
 });
+
+const swipeRightHandler = () => {
+  if(!isMobile.value){return;}
+  viewStore.goToChatList();
+}
+
+const swipeLeftHandler = () => {
+  if(!isMobile.value){return;}
+  viewStore.goToFriendList();
+}
 
 onUnmounted(() => {
   destroy$.next();
@@ -72,20 +82,20 @@ onUnmounted(() => {
         <div class="w-screen margin-2">
           <!-- 好友頁 -->
           <div v-show="currentView === 'friendListView'">
-            <UserStatusList />
+            <UserStatusList v-touch:swipe.right="swipeRightHandler" />
             <BottomNavigation />
           </div>
 
           <!-- 通知訊息頁 -->
           <div v-show="currentView === 'chatListView'">
-            <ConversationList />
+            <ConversationList v-touch:swipe.left="swipeLeftHandler" />
             <BottomNavigation />
           </div>
 
           <!-- 對話頁面 -->
           <div 
             class="
-              absolute top-0 w-full h-full bg-white
+              fixed top-0 w-full h-full bg-white
               transition-transform duration-300 ease-linear translate-x-full 
             "
             :class="{ 
@@ -102,6 +112,10 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.open{transform: translateX(0);}
-.close{transform: translateX(100%);}
+.open{
+  transform: translateX(0);
+}
+.close{
+  transform: translateX(100%);
+}
 </style>

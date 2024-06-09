@@ -25,6 +25,7 @@
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "vue3-emoji-picker": "^1.1.8",
+    "vue3-touch-events": "^4.1.8",
     "yup": "^1.4.0"
   },
   "devDependencies": {

@@ -9,6 +9,9 @@ import { ChatWindowShareStateKey } from '../chat-window-share-state-key';
 import type { ChatWindowShareState } from '../chat-window-share-state.model';
 import { debounceTime, delay, filter } from 'rxjs';
 import type { CustomStoreToRefs } from 'pinia-extensions';
+import { useTextSelection } from '@vueuse/core'
+
+const textSelectionState = useTextSelection()
 
 const messageWrapper = ref<HTMLElement | null>(null)
 
@@ -22,7 +25,8 @@ const {
 
 const viewStore = useViewStore();
 const { 
-  isRealMobile 
+  isRealMobile,
+  isMobile, 
 } = storeToRefs(viewStore);
 
 const chatWindowShareState = inject(ChatWindowShareStateKey) as ChatWindowShareState;
@@ -51,6 +55,11 @@ const dynamicHeight = computed(() => {
   }
 });
 
+const swipeRightHandler = () => {
+  if(!isMobile.value){return;}
+  if (!textSelectionState.text.value) {viewStore.goBack();}
+}
+
 </script>
 <template>
   <div
@@ -60,6 +69,7 @@ const dynamicHeight = computed(() => {
     <div 
       class="flex-grow-0 p-4"
       :style="dynamicHeight"
+      v-touch:swipe.right="swipeRightHandler"
     >
       <!-- Repeat similar message blocks for chat messages -->
       <template v-for="(message, index) in currentChatMessages" :key="message.id">
