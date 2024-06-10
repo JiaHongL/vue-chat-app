@@ -80,8 +80,11 @@ const swipeRightHandler = () => {
     >
       <!-- Repeat similar message blocks for chat messages -->
       <template v-for="(message, index) in currentChatMessages" :key="message.id">
-        <MessageItem :isOwnMessage="message.sender === chat.userInfo?.username" :index="index" :message="message"
-          :currentChatPartner="currentChatPartner" :openDropdownIndex="selectedIndex"
+        <MessageItem 
+          :isOwnMessage="message.sender === chat.userInfo?.username" 
+          :index="index" :message="message"
+          :currentChatPartner="currentChatPartner" 
+          :openDropdownIndex="selectedIndex"
           @selectDropdownIndex="selectIndex" />
       </template>
     </div>

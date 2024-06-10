@@ -348,6 +348,7 @@ export const useChatStore = defineStore('chat', () => {
 
   const reset = () => {
     chat.value = getInitialState();
+    disconnectWebSocket();
   }
 
   const methodList = {
@@ -377,8 +378,18 @@ export const useChatStore = defineStore('chat', () => {
     ...methodList,
     ...computedList,
   };
-
 },{
   usePageVisibility: true,
   useAutoScroll: true
 });
+
+
+
+
+
+
+
+
+
+
+
