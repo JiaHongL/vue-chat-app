@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref} from 'vue';
+import { computed, inject, ref, watch} from 'vue';
 import { useChatStore } from '@/stores/chatStore';
 import { storeToRefs } from 'pinia';
 import { useSelection } from '@/composables/useSelection';
@@ -42,6 +42,13 @@ useSubscription(chatWindowShareState.chatBoxScrollToBottomObs$
 }));
 
 const { selectIndex, selectedIndex, reset } = useSelection();
+
+watch([
+  () => currentChatPartner.value?.username,
+  () => chat.value.currentRoom // 可能是自己的房間 (private_a_b) 或 對方的房間 (private_b_a)
+], () => {
+  reset();
+});
 
 const dynamicHeight = computed(() => {
   if (isRealMobile.value) {
