@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue';
+import { inject, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia'
 import { ChatWindowShareStateKey } from '../chat-window-share-state-key';
 import type { ChatWindowShareState } from '../chat-window-share-state.model';
@@ -10,7 +10,7 @@ import ImagePreviewDialog from '@/components/chat/chat-window/ImagePreviewDialog
 import { useInsertAtCursor } from '@/composables/useInsertAtCursor';
 import vCompositionEndEnter from '@/directives/vCompositionEndEnter';
 
-const { saveCursorPosition, insertAtCursor } = useInsertAtCursor();
+const { saveCursorPosition, insertAtCursor, resetCursorPosition} = useInsertAtCursor();
 const textarea = ref<HTMLTextAreaElement | null>(null);
 
 const chatWindowShareState = inject<ChatWindowShareState>(ChatWindowShareStateKey);
@@ -19,9 +19,8 @@ const updateSelectedReplyMessage = chatWindowShareState?.updateSelectedReplyMess
 const { openDialog } = useDialog();
 
 const chatStore = useChatStore();
-const { sendGeneralMessage,sendPrivateMessage } = chatStore;
+const { sendGeneralMessage, sendPrivateMessage } = chatStore;
 const { chat, currentChatPartner } = storeToRefs(chatStore);
-
 
 const message = ref<string>('');
 
@@ -35,40 +34,47 @@ const sendMessage = () => {
   sendPrivateMessage(message.value, selectedMessageId);
 
   clearState();
-  }
+}
 
-  const clearState = () => {
-    message.value = '';
-    if (
-      selectedMessage &&
-      updateSelectedReplyMessage
-    ) {
-      updateSelectedReplyMessage(null);
-    }
+const clearState = () => {
+  message.value = '';
+  if (
+    selectedMessage &&
+    updateSelectedReplyMessage
+  ) {
+    updateSelectedReplyMessage(null);
   }
+}
 
-  const handlePasteImage = (event:{
-    detail:string
-  }) => {
-    openDialog(
-      ImagePreviewDialog, 
-      {
-        data: {
-          isSendButtonVisible: true,  
-          base64String: event.detail,
-        }
-    }).onClose.then((base64String: string) => {
-      if (base64String) {
-        const room = chat.value.currentRoom;
-        room === 'general' ? chatStore.sendGeneralMessage(base64String): chatStore.sendPrivateMessage(base64String);
+const handlePasteImage = (event:{
+  detail:string
+}) => {
+  openDialog(
+    ImagePreviewDialog, 
+    {
+      data: {
+        isSendButtonVisible: true,  
+        base64String: event.detail,
       }
-    });
-    
-  }
+  }).onClose.then((base64String: string) => {
+    if (base64String) {
+      const room = chat.value.currentRoom;
+      room === 'general' ? chatStore.sendGeneralMessage(base64String): chatStore.sendPrivateMessage(base64String);
+    }
+  });
+  
+}
 
-  const selectEmoji = (emoji: string) => {
-    message.value = insertAtCursor(emoji, message.value);
-  }
+const selectEmoji = (emoji: string) => {
+  message.value = insertAtCursor(emoji, message.value);
+}
+
+watch([
+  () => currentChatPartner.value?.username,
+  () => chat.value.currentRoom // 可能是自己的房間 (private_a_b) 或 對方的房間 (private_b_a)
+], () => {
+  resetCursorPosition();
+});
 
 </script>
 

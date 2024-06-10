@@ -33,8 +33,16 @@ export function useInsertAtCursor() {
     return message;
   };
 
+  const resetCursorPosition = () => {
+    cursorPosition.value = {
+      start: 0,
+      end: 0,
+    };
+  }
+
   return {
     saveCursorPosition,
     insertAtCursor,
+    resetCursorPosition
   };
 }
